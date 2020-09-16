@@ -23,7 +23,6 @@ export class App extends Component {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 this.setState({ currentWeather: data });
             })
             .catch((error) => console.error(error));
@@ -38,17 +37,17 @@ export class App extends Component {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 let requiredData = data.list.slice(0, 5);
                 this.setState({ nextDaysWeather: requiredData });
             })
             .catch((error) => console.error(error));
     }
     render() {
+        const { currentWeather, nextDaysWeather } = this.state;
         return (
             <div>
-                <CurrentWeatherForecast />
-                <NextDaysWeatherForecast />
+                <CurrentWeatherForecast currentWeather={currentWeather} />
+                <NextDaysWeatherForecast nextDaysWeather={nextDaysWeather} />
             </div>
         );
     }
