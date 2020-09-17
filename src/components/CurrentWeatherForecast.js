@@ -1,4 +1,26 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const CurrentWeatherWrapper = styled.div`
+    display: inline-block;
+    min-width: 100%;
+`;
+
+const Col = styled.div`
+    width: 33.3%;
+    float: left;
+`;
+const Row = styled.div`
+    min-width: 100%;
+`;
+
+const Label = styled.label`
+    display: block;
+`;
+
+const Progress = styled.progress`
+    width: 60%;
+`;
 
 export const CurrentWeatherForecast = (props) => {
     const { currentWeather } = props;
@@ -42,18 +64,26 @@ export const CurrentWeatherForecast = (props) => {
     }
 
     return (
-        <div>
-            <React.Fragment>
-                <h3>{currentCity}</h3>
-                <h3>{time}</h3>
-                <h3>{currentTemp}&deg;C</h3>
-                <label htmlFor="file">
+        <CurrentWeatherWrapper>
+            <Row>
+                <Col>
+                    <h3>{currentCity}</h3>
+                </Col>
+                <Col>
+                    <h3>{time}</h3>
+                </Col>
+                <Col>
+                    <h3>{currentTemp}&deg;C</h3>
+                </Col>
+            </Row>
+            <Row>
+                <Label htmlFor="file">
                     Reloading in: {60 - progressValue} seconds
-                </label>
-                <progress id="file" value={progressValue} max="60">
+                </Label>
+                <Progress id="file" value={progressValue} max="60">
                     {progressValue}%
-                </progress>
-            </React.Fragment>
-        </div>
+                </Progress>
+            </Row>
+        </CurrentWeatherWrapper>
     );
 };

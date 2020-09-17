@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { CurrentWeatherForecast } from "./components/CurrentWeatherForecast";
 import { NextDaysWeatherForecast } from "./components/NextDaysWeatherForecast";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+    background: #092047;
+`;
 
 export class App extends Component {
     constructor(props) {
@@ -65,13 +70,13 @@ export class App extends Component {
     render() {
         const { currentWeather, nextDaysWeather } = this.state;
         return (
-            <div>
+            <Wrapper>
                 <CurrentWeatherForecast
                     currentWeather={currentWeather}
                     handleRefresh={this.handleRefresh}
                 />
                 <NextDaysWeatherForecast nextDaysWeather={nextDaysWeather} />
-            </div>
+            </Wrapper>
         );
     }
 }
