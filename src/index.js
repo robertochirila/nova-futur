@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import "./styles/CurrentWeatherForecast.css";
-import "./styles/NextDaysWeatherForecast.css";
+import "./App.css";
 
 import App from "./App";
 
