@@ -14,7 +14,6 @@ export const CurrentWeatherForecast = (props) => {
             : today.getMinutes()) +
         ":" +
         today.getSeconds();
-    console.log(time);
     /**useEffect(() => {
         const interval = setInterval(() => {
             setValue(prevProgressValue => prevProgressValue === 60 ? 0 : prevProgressValue + 1);
@@ -39,18 +38,15 @@ export const CurrentWeatherForecast = (props) => {
         currentWeather.constructor === Object
     ) {
         currentCity = currentWeather.name;
-        currentTemp = currentWeather.main.temp;
+        currentTemp = Math.round(currentWeather.main.temp);
     }
-
-    console.log(currentTemp);
-    console.log(currentWeather);
 
     return (
         <div>
             <React.Fragment>
                 <h3>{currentCity}</h3>
                 <h3>{time}</h3>
-                <h3>{currentTemp}</h3>
+                <h3>{currentTemp}&deg;C</h3>
                 <label htmlFor="file">
                     Reloading in: {60 - progressValue} seconds
                 </label>

@@ -13,7 +13,6 @@ export class App extends Component {
     }
 
     componentDidMount() {
-        console.count("how many times");
         this.fetchData();
     }
 
@@ -23,7 +22,7 @@ export class App extends Component {
         var nextDaysWeather;
 
         fetch(
-            "https://api.openweathermap.org/data/2.5/weather?q=London&appid=1fc71092a81b329e8ce0e1ae88ef0fb7"
+            "https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=1fc71092a81b329e8ce0e1ae88ef0fb7"
         )
             .then((response) => {
                 const contentType = response.headers.get("content-type");
@@ -37,7 +36,7 @@ export class App extends Component {
             })
             .catch((error) => console.error(error));
         fetch(
-            "https://api.openweathermap.org/data/2.5/forecast?q=London&appid=1fc71092a81b329e8ce0e1ae88ef0fb7"
+            "https://api.openweathermap.org/data/2.5/forecast?q=London&units=metric&appid=1fc71092a81b329e8ce0e1ae88ef0fb7"
         )
             .then((response) => {
                 const contentType = response.headers.get("content-type");
@@ -47,14 +46,13 @@ export class App extends Component {
                 return response.json();
             })
             .then((data) => {
-                let requiredData = data.list.slice(0, 5);
-                nextDaysWeather = requiredData;
+                //let requiredData = data.list.slice(0, 5);
+                console.log(data.list.length);
+                nextDaysWeather = data.list;
             })
             .catch((error) => console.error(error));
 
         let f = setTimeout(() => {
-            console.log(currentWeather);
-            console.log(nextDaysWeather);
             this.setState({
                 currentWeather: currentWeather,
                 nextDaysWeather: nextDaysWeather,
