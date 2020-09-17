@@ -46,8 +46,6 @@ export class App extends Component {
                 return response.json();
             })
             .then((data) => {
-                //let requiredData = data.list.slice(0, 5);
-                console.log(data.list.length);
                 nextDaysWeather = data.list;
             })
             .catch((error) => console.error(error));

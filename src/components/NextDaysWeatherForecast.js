@@ -16,6 +16,8 @@ export const NextDaysWeatherForecast = (props) => {
                     auxIndex = auxIndex + 8;
                     icon = requiredDay.weather[0].icon;
                     let iconAPI = `http://openweathermap.org/img/wn/${icon}.png​`;
+                    iconAPI = iconAPI.replace(/\u200B/g, "");
+
                     n = n + 1;
                     if (n === 7) {
                         n = 0;
