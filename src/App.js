@@ -4,7 +4,7 @@ import { NextDaysWeatherForecast } from "./components/NextDaysWeatherForecast";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-    background: #092047;
+    display: block;
 `;
 
 export class App extends Component {

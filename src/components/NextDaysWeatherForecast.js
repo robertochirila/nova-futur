@@ -1,5 +1,28 @@
 import React from "react";
+import styled from "styled-components";
+import { Col } from "./CurrentWeatherForecast";
 
+const NextDaysWrapper = styled.div`
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 5%;
+    overflow: hidden;
+`;
+const ListWrapper = styled.div`
+    transition: all 0.5s;
+    overflow: hidden;
+    &:hover {
+        font-size: 120%;
+    }
+`;
+const Span = styled.span``;
+const Image = styled.img`
+    display: inline-block;
+`;
+const ColSpan2 = styled.div`
+    float: left;
+    width: 50%;
+`;
 export const NextDaysWeatherForecast = (props) => {
     const { nextDaysWeather } = props;
     let auxIndex = 0;
@@ -9,7 +32,7 @@ export const NextDaysWeatherForecast = (props) => {
     let daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
     return (
-        <div>
+        <NextDaysWrapper>
             {nextDaysWeather.map((days, index) => {
                 if (auxIndex < nextDaysWeather.length) {
                     let requiredDay = nextDaysWeather[auxIndex];
@@ -23,15 +46,27 @@ export const NextDaysWeatherForecast = (props) => {
                         n = 0;
                     }
                     return (
-                        <div key={index}>
-                            <span>{daysOfWeek[n]}</span>
-                            <span>{requiredDay.main.temp}&deg;C</span>
-                            <span>{requiredDay.weather[0].description}</span>
-                            <img src={iconAPI}></img>
-                        </div>
+                        <ListWrapper key={index}>
+                            <Col>
+                                <Span>{daysOfWeek[n]}</Span>
+                            </Col>
+                            <Col>
+                                <Span>{requiredDay.main.temp}&deg;C</Span>
+                            </Col>
+                            <Col>
+                                <ColSpan2>
+                                    <Span>
+                                        {requiredDay.weather[0].description}
+                                    </Span>
+                                </ColSpan2>
+                                <ColSpan2>
+                                    <Image src={iconAPI}></Image>
+                                </ColSpan2>
+                            </Col>
+                        </ListWrapper>
                     );
                 }
             })}
-        </div>
+        </NextDaysWrapper>
     );
 };

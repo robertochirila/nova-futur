@@ -4,11 +4,13 @@ import styled from "styled-components";
 const CurrentWeatherWrapper = styled.div`
     display: inline-block;
     min-width: 100%;
+    text-align: center;
 `;
 
-const Col = styled.div`
+export const Col = styled.div`
     width: 33.3%;
     float: left;
+    text-align: center;
 `;
 const Row = styled.div`
     min-width: 100%;
