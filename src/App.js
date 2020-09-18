@@ -22,12 +22,14 @@ export class App extends Component {
         this.fetchData();
     }
 
-    fetchData = () => {
+    async function() {}
+
+    fetchData = async () => {
         const { step } = this.state;
         var currentWeather;
         var nextDaysWeather;
 
-        fetch(
+        await fetch(
             "https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=1fc71092a81b329e8ce0e1ae88ef0fb7"
         )
             .then((response) => {
@@ -41,7 +43,7 @@ export class App extends Component {
                 currentWeather = data;
             })
             .catch((error) => console.error(error));
-        fetch(
+        await fetch(
             "https://api.openweathermap.org/data/2.5/forecast?q=London&units=metric&appid=1fc71092a81b329e8ce0e1ae88ef0fb7"
         )
             .then((response) => {
@@ -56,12 +58,10 @@ export class App extends Component {
             })
             .catch((error) => console.error(error));
 
-        let f = setTimeout(() => {
-            this.setState({
-                currentWeather: currentWeather,
-                nextDaysWeather: nextDaysWeather,
-            });
-        }, 2000);
+        this.setState({
+            currentWeather: currentWeather,
+            nextDaysWeather: nextDaysWeather,
+        });
     };
 
     handleRefresh = () => {
