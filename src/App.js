@@ -61,7 +61,7 @@ export class App extends Component {
                 currentWeather: currentWeather,
                 nextDaysWeather: nextDaysWeather,
             });
-        }, 1000);
+        }, 2000);
     };
 
     handleRefresh = () => {
