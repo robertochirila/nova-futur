@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
     display: block;
+    font-size: 14px;
 `;
 
 export class App extends Component {

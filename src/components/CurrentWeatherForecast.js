@@ -8,25 +8,61 @@ const CurrentWeatherWrapper = styled.div`
 `;
 
 export const Col = styled.div`
-    width: 33.3%;
-    float: left;
+    width: 100%;
+    overflow: hidden;
     text-align: center;
+    margin: 1%;
+    @media (min-width: 780px) {
+        width: 100%;
+        margin: 0 0 0 0;
+    }
+    @media (min-width: 1000px) {
+        width: 33.3%;
+        float: left;
+        margin-top: 1%;
+    }
 `;
 const Row = styled.div`
     min-width: 100%;
+    overflow: hidden;
 `;
 
 const Label = styled.label`
     display: block;
 `;
 
-const Progress = styled.progress`
+const Progress = styled.div`
     width: 60%;
+    margin-left: 20%;
+    height: 30px;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    margin-top: 1%;
+    animation: ${(props) => props.pulse};
+    animation-iteration-count: infinite;
+    @keyframes pulse {
+        0% {
+            background-color: #001f3f;
+        }
+        100% {
+            background-color: #ff4136;
+        }
+    }
+`;
+
+const Level = styled.span`
+    height: 30px;
+    display: block;
+    border-radius: 20px;
+    transition: all 1s ease-in;
+    background-color: ${(props) => props.changeColor};
 `;
 
 export const CurrentWeatherForecast = (props) => {
     const { currentWeather } = props;
     const [progressValue, setValue] = useState(0);
+    const [progressBarValue, setProgressBarValue] = useState(3.2);
     var currentTemp;
     var currentCity;
     var today = new Date();
@@ -38,25 +74,24 @@ export const CurrentWeatherForecast = (props) => {
             : today.getMinutes()) +
         ":" +
         today.getSeconds();
-    /**useEffect(() => {
-        const interval = setInterval(() => {
-            setValue(prevProgressValue => prevProgressValue === 60 ? 0 : prevProgressValue + 1);
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
 
-    useEffect(() => progressValue === 60 && props.handleRefresh(), [progressValue]); */
     useEffect(() => {
         const interval = setInterval(() => {
             props.handleRefresh();
-        }, 20000);
+        }, 60000);
         const updateProgressBar = setInterval(() => {
             setValue((progressValue) =>
-                progressValue < 61 ? progressValue + 1 : (progressValue = 0)
+                progressValue < 60 ? progressValue + 1 : (progressValue = 0)
+            );
+            setProgressBarValue((progressBarValue) =>
+                progressBarValue < 100
+                    ? (progressBarValue += 1.6)
+                    : (progressBarValue = 0)
             );
         }, 1000);
         return () => clearInterval(interval, updateProgressBar);
     }, []);
+
     if (
         Object.keys(currentWeather).length !== 0 &&
         currentWeather.constructor === Object
@@ -67,25 +102,43 @@ export const CurrentWeatherForecast = (props) => {
 
     return (
         <CurrentWeatherWrapper>
-            <Row>
-                <Col>
-                    <h3>{currentCity}</h3>
-                </Col>
-                <Col>
-                    <h3>{time}</h3>
-                </Col>
-                <Col>
-                    <h3>{currentTemp}&deg;C</h3>
-                </Col>
-            </Row>
-            <Row>
-                <Label htmlFor="file">
-                    Reloading in: {60 - progressValue} seconds
-                </Label>
-                <Progress id="file" value={progressValue} max="60">
-                    {progressValue}%
-                </Progress>
-            </Row>
+            {Object.keys(currentWeather).length !== 0 &&
+            currentWeather.constructor === Object ? (
+                <React.Fragment>
+                    <Row>
+                        <Col>
+                            <h3>{currentCity}</h3>
+                        </Col>
+                        <Col>
+                            <h3>{time}</h3>
+                        </Col>
+                        <Col>
+                            <h3>{currentTemp}&deg;C</h3>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Label htmlFor="file">
+                            Reloading in: {60 - progressValue} seconds
+                        </Label>
+                        <Progress
+                            pulse={
+                                progressValue > 7 ? "pulse 2s infinite" : null
+                            }
+                        >
+                            <Level
+                                changeColor={
+                                    progressValue > 5
+                                        ? "rgb(3, 255, 41)"
+                                        : "rgb(255, 3, 108)"
+                                }
+                                style={{
+                                    width: progressBarValue + "%",
+                                }}
+                            ></Level>
+                        </Progress>
+                    </Row>
+                </React.Fragment>
+            ) : null}
         </CurrentWeatherWrapper>
     );
 };

@@ -11,8 +11,12 @@ const NextDaysWrapper = styled.div`
 const ListWrapper = styled.div`
     transition: all 0.5s;
     overflow: hidden;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    margin: 1%;
+    background: #0b468c;
     &:hover {
-        font-size: 120%;
+        opacity: 0.7;
     }
 `;
 const Span = styled.span``;
@@ -20,8 +24,15 @@ const Image = styled.img`
     display: inline-block;
 `;
 const ColSpan2 = styled.div`
-    float: left;
-    width: 50%;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    @media (min-width: 780px) {
+        width: 100%;
+    }
+    @media (min-width: 1000px) {
+        width: 50%;
+    }
 `;
 export const NextDaysWeatherForecast = (props) => {
     const { nextDaysWeather } = props;
@@ -40,7 +51,6 @@ export const NextDaysWeatherForecast = (props) => {
                     icon = requiredDay.weather[0].icon;
                     let iconAPI = `http://openweathermap.org/img/wn/${icon}.png​`;
                     iconAPI = iconAPI.replace(/\u200B/g, "");
-
                     n = n + 1;
                     if (n === 7) {
                         n = 0;
@@ -51,7 +61,9 @@ export const NextDaysWeatherForecast = (props) => {
                                 <Span>{daysOfWeek[n]}</Span>
                             </Col>
                             <Col>
-                                <Span>{requiredDay.main.temp}&deg;C</Span>
+                                <Span>
+                                    {Math.round(requiredDay.main.temp)}&deg;C
+                                </Span>
                             </Col>
                             <Col>
                                 <ColSpan2>
